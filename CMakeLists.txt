@@ -18,8 +18,6 @@ if (CMAKE_GENERATOR STREQUAL "MinGW Makefiles")
     set(CMAKE_CXX_COMPILER  ${MINGW_PATH}/bin/g++.exe)
 endif()
 
-include_directories(ext)
-
 if (DEFINED GLFW_PATH)
     message(STATUS "Using GLFW path specified in .env")
     set(GLFW_INCLUDE_DIRS "${GLFW_PATH}/include")
@@ -53,6 +51,9 @@ if (NOT Vulkan_FOUND)
 else()
     message(STATUS "Using vulkan lib at: ${Vulkan_LIBRARIES}")
 endif()
+
+include_directories(ext)
+include_directories(inc)
 
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
