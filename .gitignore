@@ -1,3 +1,6 @@
 # Direcotries
 **build**
 .idea
+
+# Compiled shaders
+*.spv
