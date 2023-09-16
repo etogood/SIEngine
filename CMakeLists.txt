@@ -8,7 +8,7 @@ set(PROJECT_NAME SIEngine)
 
 project(${PROJECT_NAME})
 
-message(STATUS "using ${CMAKE_GENERATOR}")
+message(STATUS "Using ${CMAKE_GENERATOR}")
 if (CMAKE_GENERATOR STREQUAL "MinGW Makefiles")
     if (NOT MINGW_PATH)
         message(FATAL_ERROR "MINGW_PATH not set in .env.cmake")
@@ -26,7 +26,7 @@ if (DEFINED GLFW_PATH)
     if (MSVC)
         set(GLFW_LIB "${GLFW_PATH}/lib-vc2019")
     elseif (CMAKE_GENERATOR STREQUAL "Ninja")
-        message(STATUS "USING Ninja")
+        message(STATUS "Using MinGW")
         set(GLFW_LIB "${GLFW_PATH}/lib-mingw-w64")
     endif()
 else()
@@ -75,7 +75,6 @@ if (WIN32)
     target_include_directories(${PROJECT_NAME} PUBLIC
             ${PROJECT_SOURCE_DIR}/src
             ${Vulkan_INCLUDE_DIRS}
-            ${TINYOBJ_PATH}
             ${GLFW_INCLUDE_DIRS}
             ${GLM_PATH}
     )
@@ -90,7 +89,6 @@ elseif (UNIX)
     message(STATUS "CREATING BUILD FOR UNIX")
     target_include_directories(${PROJECT_NAME} PUBLIC
             ${PROJECT_SOURCE_DIR}/src
-            ${TINYOBJ_PATH}
     )
     target_link_libraries(${PROJECT_NAME} glfw ${Vulkan_LIBRARIES})
 endif()
