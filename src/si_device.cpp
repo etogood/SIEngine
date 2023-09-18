@@ -57,7 +57,6 @@ SiDevice::SiDevice(SiWindow &window) : window{window} {
 }
 
 SiDevice::~SiDevice() {
-  vkDestroyCommandPool(device_, commandPool, nullptr);
   vkDestroyDevice(device_, nullptr);
 
   if (enableValidationLayers) {
@@ -66,6 +65,7 @@ SiDevice::~SiDevice() {
 
   vkDestroySurfaceKHR(instance, surface_, nullptr);
   vkDestroyInstance(instance, nullptr);
+  vkDestroyCommandPool(device_, commandPool, nullptr);
 }
 
 void SiDevice::createInstance() {
