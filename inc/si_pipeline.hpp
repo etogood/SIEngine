@@ -2,9 +2,7 @@
 // Created by etogood on 16.09.2023.
 //
 
-#ifndef SIENGINE_SI_PIPELINE_HPP
-#define SIENGINE_SI_PIPELINE_HPP
-
+#pragma once
 #include "si_device.hpp"
 
 // std
@@ -13,14 +11,19 @@
 
 namespace si {
     struct PipelineConfigInfo {
-        VkViewport viewport;
-        VkRect2D scissor;
+        PipelineConfigInfo() = default;
+        PipelineConfigInfo(const PipelineConfigInfo&) = delete;
+        PipelineConfigInfo& operator=(const PipelineConfigInfo&) = delete;
+
+        VkPipelineViewportStateCreateInfo viewportInfo;
         VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
         VkPipelineRasterizationStateCreateInfo rasterizationInfo;
         VkPipelineMultisampleStateCreateInfo multisampleInfo;
         VkPipelineColorBlendAttachmentState colorBlendAttachment;
         VkPipelineColorBlendStateCreateInfo colorBlendInfo;
         VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
+        std::vector<VkDynamicState> dynamicStateEnables;
+        VkPipelineDynamicStateCreateInfo dynamicStateInfo;
         VkPipelineLayout pipelineLayout = nullptr;
         VkRenderPass renderPass = nullptr;
         uint32_t subpass = 0;
@@ -35,10 +38,10 @@ namespace si {
                 const PipelineConfigInfo& configInfo);
         ~SiPipeline();
         SiPipeline(const SiPipeline&) = delete;
-        void operator=(const SiPipeline&) = delete;
+        SiPipeline& operator=(const SiPipeline&) = delete;
 
         void bind(VkCommandBuffer commandBuffer);
-        static PipelineConfigInfo defaultPipelineConfigInfo(uint32_t width, uint32_t height);
+        static void defaultPipelineConfigInfo(PipelineConfigInfo& configInfo);
 
     private:
         static std::vector<char> readFile(const std::string& filepath);
@@ -56,4 +59,3 @@ namespace si {
     };
 }
 
-#endif //SIENGINE_SI_PIPELINE_HPP

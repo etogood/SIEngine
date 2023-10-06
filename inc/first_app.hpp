@@ -31,11 +31,14 @@ namespace si {
         void createPipelineLayout();
         void createPipeline();
         void createCommandBuffers();
+        void freeCommandBuffers();
         void drawFrame();
+        void recreateSwapChain();
+        void recordCommandBuffer(int imageIndex);
 
         SiWindow siWindow{WIDTH, HEIGHT, "Hello, World!"};
         SiDevice siDevice{siWindow};
-        SiSwapChain siSwapChain{siDevice, siWindow.getExtent()};
+        std::unique_ptr<SiSwapChain> siSwapChain;
         std::unique_ptr<SiPipeline> siPipeline;
         VkPipelineLayout pipelineLayout;
         std::vector<VkCommandBuffer> commandBuffers;
