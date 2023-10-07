@@ -78,8 +78,8 @@ namespace si {
         pipelineConfig.pipelineLayout = pipelineLayout;
         siPipeline = std::make_unique<SiPipeline>(
                 siDevice,
-                "../shaders/simple_shader.vert.spv",
-                "../shaders/simple_shader.frag.spv",
+                "shaders/simple_shader.vert.spv",
+                "shaders/simple_shader.frag.spv",
                 pipelineConfig
                 );
     }
